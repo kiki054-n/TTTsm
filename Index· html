@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TTT — Tri-Tetra Symmetry Model</title>
+
+  <!-- MathJax for equations -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,32 +16,59 @@
       color: #e6edf3;
       line-height: 1.6;
     }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: #0b0f1a;
+      border-bottom: 1px solid #222;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: #58a6ff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 0.9em;
+    }
+
     header {
       text-align: center;
       padding: 60px 20px;
       border-bottom: 1px solid #222;
     }
+
     h1 {
       font-size: 2.5em;
       letter-spacing: 2px;
     }
+
     section {
       max-width: 900px;
       margin: auto;
       padding: 40px 20px;
       border-bottom: 1px solid #222;
     }
+
     h2 {
       color: #58a6ff;
-      margin-bottom: 10px;
     }
-    code {
-      display: block;
+
+    .equation {
       background: #111827;
-      padding: 15px;
-      border-radius: 8px;
-      margin: 15px 0;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin: 20px 0;
+      font-size: 1.2em;
     }
+
+    .diagram {
+      text-align: center;
+      margin: 30px 0;
+    }
+
     footer {
       text-align: center;
       padding: 20px;
@@ -48,81 +79,85 @@
 </head>
 <body>
 
+<nav>
+  <a href="#overview">Overview</a>
+  <a href="#core">Core</a>
+  <a href="#geometry">Geometry</a>
+  <a href="#spectrum">Spectrum</a>
+  <a href="#hypothesis">Hypothesis</a>
+</nav>
+
 <header>
-  <h1>TTT — Tri-Tetra Symmetry Model</h1>
-  <p>Symmetry · Balance · Emergent Center</p>
+  <h1>TTT</h1>
+  <p>Tri-Tetra Symmetry Model</p>
 </header>
 
-<section>
+<section id="overview">
   <h2>Overview</h2>
   <p>
-    TTT is a geometric model based on vector balance and symmetry.
-    It describes how stable structures emerge from minimal configurations
-    such as the tetrahedron and extend to spherical symmetry.
+    A geometric model describing how symmetry and balance generate stable structures.
+    The center is not predefined — it emerges from equilibrium.
   </p>
 </section>
 
-<section>
+<section id="core">
   <h2>Core Theorem</h2>
-  <code>
-    v₁ + v₂ + v₃ + v₄ = 0
-  </code>
+  <div class="equation">
+    \[ v_1 + v_2 + v_3 + v_4 = 0 \]
+  </div>
   <p>
-    When four vectors sum to zero, they form a tetrahedral configuration.
-    The angle between them is approximately 109.47°.
+    This condition produces a tetrahedral configuration with equal angles (~109.47°).
   </p>
 </section>
 
-<section>
-  <h2>Geometric Structure</h2>
+<section id="geometry">
+  <h2>Geometry</h2>
   <p>
-    3 vectors → triangle (plane)<br>
-    4 vectors → tetrahedron (3D stability)<br>
-    Dual → octahedron<br>
-    Limit → spherical symmetry
+    3 → triangle<br>
+    4 → tetrahedron<br>
+    dual → octahedron<br>
+    limit → sphere
+  </p>
+
+  <div class="diagram">
+    <!-- simple tetrahedron projection -->
+    <svg width="200" height="200">
+      <circle cx="100" cy="40" r="4" fill="#58a6ff"/>
+      <circle cx="40" cy="160" r="4" fill="#58a6ff"/>
+      <circle cx="160" cy="160" r="4" fill="#58a6ff"/>
+      <circle cx="100" cy="110" r="4" fill="#58a6ff"/>
+
+      <line x1="100" y1="40" x2="40" y2="160" stroke="#aaa"/>
+      <line x1="100" y1="40" x2="160" y2="160" stroke="#aaa"/>
+      <line x1="40" y1="160" x2="160" y2="160" stroke="#aaa"/>
+      <line x1="100" y1="40" x2="100" y2="110" stroke="#aaa"/>
+      <line x1="40" y1="160" x2="100" y2="110" stroke="#aaa"/>
+      <line x1="160" y1="160" x2="100" y2="110" stroke="#aaa"/>
+    </svg>
+  </div>
+</section>
+
+<section id="spectrum">
+  <h2>Spectrum</h2>
+  <div class="equation">
+    \[ j_1(z) = 0 \]
+    \[ z_1 \approx 4.4934,\; z_2 \approx 7.7252,\; z_3 \approx 10.9041 \]
+  </div>
+  <p>
+    These define discrete spherical modes.
   </p>
 </section>
 
-<section>
-  <h2>Spherical Modes</h2>
-  <p>
-    The 3-directional structure corresponds to the l = 1 spherical harmonic mode,
-    representing the fundamental rotational symmetry in 3D space.
-  </p>
-</section>
-
-<section>
-  <h2>Spectral Structure</h2>
-  <code>
-    j₁(z) = 0
-    z₁ ≈ 4.4934
-    z₂ ≈ 7.7252
-    z₃ ≈ 10.9041
-  </code>
-  <p>
-    These values define discrete modes in a spherical system.
-  </p>
-</section>
-
-<section>
+<section id="hypothesis">
   <h2>Hypothesis</h2>
   <p>
-    These spectral modes may correspond to hierarchical structures in physics.
-    This remains a hypothesis and requires further validation.
-  </p>
-</section>
-
-<section>
-  <h2>Interpretation</h2>
-  <p>
-    Stability emerges from balance, not dominance.
-    The center is not predefined, but arises from symmetry.
+    These modes may correspond to hierarchical structures in physics.
+    This interpretation remains unverified.
   </p>
 </section>
 
 <footer>
   <p>github.com/kiki054-n/TTT</p>
-  <p>by kiki054-n</p>
 </footer>
 
 </body>
