@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TTT — Tri-Tetra Symmetry Model</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #0b0f1a;
+      color: #e6edf3;
+      line-height: 1.6;
+    }
+    header {
+      text-align: center;
+      padding: 60px 20px;
+      border-bottom: 1px solid #222;
+    }
+    h1 {
+      font-size: 2.5em;
+      letter-spacing: 2px;
+    }
+    section {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+      border-bottom: 1px solid #222;
+    }
+    h2 {
+      color: #58a6ff;
+      margin-bottom: 10px;
+    }
+    code {
+      display: block;
+      background: #111827;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #8b949e;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>TTT — Tri-Tetra Symmetry Model</h1>
+  <p>Symmetry · Balance · Emergent Center</p>
+</header>
+
+<section>
+  <h2>Overview</h2>
+  <p>
+    TTT is a geometric model based on vector balance and symmetry.
+    It describes how stable structures emerge from minimal configurations
+    such as the tetrahedron and extend to spherical symmetry.
+  </p>
+</section>
+
+<section>
+  <h2>Core Theorem</h2>
+  <code>
+    v₁ + v₂ + v₃ + v₄ = 0
+  </code>
+  <p>
+    When four vectors sum to zero, they form a tetrahedral configuration.
+    The angle between them is approximately 109.47°.
+  </p>
+</section>
+
+<section>
+  <h2>Geometric Structure</h2>
+  <p>
+    3 vectors → triangle (plane)<br>
+    4 vectors → tetrahedron (3D stability)<br>
+    Dual → octahedron<br>
+    Limit → spherical symmetry
+  </p>
+</section>
+
+<section>
+  <h2>Spherical Modes</h2>
+  <p>
+    The 3-directional structure corresponds to the l = 1 spherical harmonic mode,
+    representing the fundamental rotational symmetry in 3D space.
+  </p>
+</section>
+
+<section>
+  <h2>Spectral Structure</h2>
+  <code>
+    j₁(z) = 0
+    z₁ ≈ 4.4934
+    z₂ ≈ 7.7252
+    z₃ ≈ 10.9041
+  </code>
+  <p>
+    These values define discrete modes in a spherical system.
+  </p>
+</section>
+
+<section>
+  <h2>Hypothesis</h2>
+  <p>
+    These spectral modes may correspond to hierarchical structures in physics.
+    This remains a hypothesis and requires further validation.
+  </p>
+</section>
+
+<section>
+  <h2>Interpretation</h2>
+  <p>
+    Stability emerges from balance, not dominance.
+    The center is not predefined, but arises from symmetry.
+  </p>
+</section>
+
+<footer>
+  <p>github.com/kiki054-n/TTT</p>
+  <p>by kiki054-n</p>
+</footer>
+
+</body>
+</html>
