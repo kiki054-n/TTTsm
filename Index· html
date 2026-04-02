@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TTT — Tri-Tetra Symmetry Model</title>
 
-  <!-- MathJax for equations -->
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style>
@@ -14,7 +13,6 @@
       margin: 0;
       background: #0b0f1a;
       color: #e6edf3;
-      line-height: 1.6;
     }
 
     nav {
@@ -39,10 +37,7 @@
       border-bottom: 1px solid #222;
     }
 
-    h1 {
-      font-size: 2.5em;
-      letter-spacing: 2px;
-    }
+    h1 { font-size: 2.5em; }
 
     section {
       max-width: 900px;
@@ -51,9 +46,7 @@
       border-bottom: 1px solid #222;
     }
 
-    h2 {
-      color: #58a6ff;
-    }
+    h2 { color: #58a6ff; }
 
     .equation {
       background: #111827;
@@ -61,19 +54,39 @@
       border-radius: 10px;
       text-align: center;
       margin: 20px 0;
-      font-size: 1.2em;
     }
 
-    .diagram {
-      text-align: center;
-      margin: 30px 0;
+    canvas {
+      display: block;
+      margin: 30px auto;
+      background: #111827;
+      border-radius: 10px;
     }
 
-    footer {
+    .note {
       text-align: center;
-      padding: 20px;
       font-size: 0.9em;
-      color: #8b949e;
+      color: #9aa4af;
+    }
+
+    .controls {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    button {
+      background: #58a6ff;
+      color: #000;
+      border: none;
+      padding: 8px 14px;
+      margin: 5px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.8;
     }
   </style>
 </head>
@@ -83,82 +96,123 @@
   <a href="#overview">Overview</a>
   <a href="#core">Core</a>
   <a href="#geometry">Geometry</a>
-  <a href="#spectrum">Spectrum</a>
-  <a href="#hypothesis">Hypothesis</a>
+  <a href="#tetra">Tetrahedron</a>
 </nav>
 
 <header>
   <h1>TTT</h1>
-  <p>Tri-Tetra Symmetry Model</p>
+  <p>Symmetry generates structure. Balance defines reality.</p>
 </header>
 
 <section id="overview">
   <h2>Overview</h2>
   <p>
-    A geometric model describing how symmetry and balance generate stable structures.
-    The center is not predefined — it emerges from equilibrium.
+    A geometric model where symmetry and vector balance produce stable structures.
   </p>
 </section>
 
 <section id="core">
   <h2>Core Theorem</h2>
-  <div class="equation">
-    \[ v_1 + v_2 + v_3 + v_4 = 0 \]
-  </div>
-  <p>
-    This condition produces a tetrahedral configuration with equal angles (~109.47°).
-  </p>
+  <div class="equation">\[ v_1 + v_2 + v_3 + v_4 = 0 \]</div>
 </section>
 
 <section id="geometry">
   <h2>Geometry</h2>
-  <p>
-    3 → triangle<br>
-    4 → tetrahedron<br>
-    dual → octahedron<br>
-    limit → sphere
-  </p>
+  <p>3 → triangle / 4 → tetrahedron / dual → octahedron</p>
+</section>
 
-  <div class="diagram">
-    <!-- simple tetrahedron projection -->
-    <svg width="200" height="200">
-      <circle cx="100" cy="40" r="4" fill="#58a6ff"/>
-      <circle cx="40" cy="160" r="4" fill="#58a6ff"/>
-      <circle cx="160" cy="160" r="4" fill="#58a6ff"/>
-      <circle cx="100" cy="110" r="4" fill="#58a6ff"/>
+<section id="tetra">
+  <h2>3D Tetrahedron Visualization</h2>
+  <canvas id="tetraCanvas" width="340" height="340"></canvas>
 
-      <line x1="100" y1="40" x2="40" y2="160" stroke="#aaa"/>
-      <line x1="100" y1="40" x2="160" y2="160" stroke="#aaa"/>
-      <line x1="40" y1="160" x2="160" y2="160" stroke="#aaa"/>
-      <line x1="100" y1="40" x2="100" y2="110" stroke="#aaa"/>
-      <line x1="40" y1="160" x2="100" y2="110" stroke="#aaa"/>
-      <line x1="160" y1="160" x2="100" y2="110" stroke="#aaa"/>
-    </svg>
+  <div class="controls">
+    <button onclick="toggleRotation()">Start / Stop</button>
+    <button onclick="resetView()">Reset</button>
   </div>
+
+  <div class="note">Four vectors (v₁–v₄) form a tetrahedron with Σv = 0.</div>
 </section>
 
-<section id="spectrum">
-  <h2>Spectrum</h2>
-  <div class="equation">
-    \[ j_1(z) = 0 \]
-    \[ z_1 \approx 4.4934,\; z_2 \approx 7.7252,\; z_3 \approx 10.9041 \]
-  </div>
-  <p>
-    These define discrete spherical modes.
-  </p>
-</section>
+<script>
+const canvas = document.getElementById('tetraCanvas');
+const ctx = canvas.getContext('2d');
 
-<section id="hypothesis">
-  <h2>Hypothesis</h2>
-  <p>
-    These modes may correspond to hierarchical structures in physics.
-    This interpretation remains unverified.
-  </p>
-</section>
+let angle = 0;
+let rotating = true;
 
-<footer>
-  <p>github.com/kiki054-n/TTT</p>
-</footer>
+const vertices = [
+  [1, 1, 1],
+  [-1, -1, 1],
+  [-1, 1, -1],
+  [1, -1, -1]
+];
+
+function rotate([x,y,z], ax, ay) {
+  let cosY = Math.cos(ay), sinY = Math.sin(ay);
+  let dx = cosY*x + sinY*z;
+  let dz = -sinY*x + cosY*z;
+
+  let cosX = Math.cos(ax), sinX = Math.sin(ax);
+  let dy = cosX*y - sinX*dz;
+  dz = sinX*y + cosX*dz;
+
+  return [dx, dy, dz];
+}
+
+function project([x,y,z]) {
+  let scale = 120 / (z + 4);
+  return [170 + x*scale, 170 + y*scale];
+}
+
+function draw() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  let pts = vertices.map(v => project(rotate(v, angle*0.7, angle)));
+
+  // edges
+  for (let i=0;i<4;i++){
+    for (let j=i+1;j<4;j++){
+      ctx.beginPath();
+      ctx.moveTo(pts[i][0], pts[i][1]);
+      ctx.lineTo(pts[j][0], pts[j][1]);
+      ctx.strokeStyle = '#444';
+      ctx.stroke();
+    }
+  }
+
+  // vectors + labels
+  for (let i=0;i<4;i++){
+    ctx.beginPath();
+    ctx.moveTo(170,170);
+    ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.strokeStyle = i===3 ? '#ff7b72' : '#58a6ff';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.fillStyle = '#e6edf3';
+    ctx.font = '12px Arial';
+    ctx.fillText('v' + (i+1), pts[i][0] + 5, pts[i][1] + 5);
+  }
+
+  ctx.fillStyle = '#00ff88';
+  ctx.font = '14px Arial';
+  ctx.fillText('Σv = 0', 140, 175);
+
+  if (rotating) angle += 0.01;
+
+  requestAnimationFrame(draw);
+}
+
+function toggleRotation() {
+  rotating = !rotating;
+}
+
+function resetView() {
+  angle = 0;
+}
+
+draw();
+</script>
 
 </body>
 </html>
