@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TTT — Tri-Tetra Symmetry Model</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #0b0f1a;
+      color: #e6edf3;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: #0b0f1a;
+      border-bottom: 1px solid #222;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: #58a6ff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 0.9em;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px;
+      border-bottom: 1px solid #222;
+    }
+
+    h1 { font-size: 2.5em; }
+
+    section {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+      border-bottom: 1px solid #222;
+    }
+
+    h2 { color: #58a6ff; }
+
+    .equation {
+      background: #111827;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    canvas {
+      display: block;
+      margin: 30px auto;
+      background: #111827;
+      border-radius: 10px;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 0.9em;
+      color: #9aa4af;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#overview">Overview</a>
+  <a href="#core">Core</a>
+  <a href="#geometry">Geometry</a>
+  <a href="#tetra">Tetrahedron</a>
+</nav>
+
+<header>
+  <h1>TTT</h1>
+  <p>Symmetry generates structure. Balance defines reality.</p>
+</header>
+
+<section id="overview">
+  <h2>Overview</h2>
+  <p>
+    A geometric model where symmetry and vector balance produce stable structures.
+  </p>
+</section>
+
+<section id="core">
+  <h2>Core Theorem</h2>
+  <div class="equation">\[ v_1 + v_2 + v_3 + v_4 = 0 \]</div>
+</section>
+
+<section id="geometry">
+  <h2>Geometry</h2>
+  <p>3 → triangle / 4 → tetrahedron / dual → octahedron</p>
+</section>
+
+<section id="tetra">
+  <h2>3D Tetrahedron Visualization</h2>
+  <canvas id="tetraCanvas" width="340" height="340"></canvas>
+  <div class="note">Four vectors form a tetrahedron with zero sum.</div>
+</section>
+
+<script>
+const canvas = document.getElementById('tetraCanvas');
+const ctx = canvas.getContext('2d');
+
+let angle = 0;
+
+// tetrahedron vertices (normalized)
+const vertices = [
+  [1, 1, 1],
+  [-1, -1, 1],
+  [-1, 1, -1],
+  [1, -1, -1]
+];
+
+function rotate([x,y,z], ax, ay) {
+  // rotate Y
+  let cosY = Math.cos(ay), sinY = Math.sin(ay);
+  let dx = cosY*x + sinY*z;
+  let dz = -sinY*x + cosY*z;
+
+  // rotate X
+  let cosX = Math.cos(ax), sinX = Math.sin(ax);
+  let dy = cosX*y - sinX*dz;
+  dz = sinX*y + cosX*dz;
+
+  return [dx, dy, dz];
+}
+
+function project([x,y,z]) {
+  let scale = 120 / (z + 4);
+  return [170 + x*scale, 170 + y*scale];
+}
+
+function draw() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  let pts = vertices.map(v => project(rotate(v, angle*0.7, angle)));
+
+  // edges
+  for (let i=0;i<4;i++){
+    for (let j=i+1;j<4;j++){
+      ctx.beginPath();
+      ctx.moveTo(pts[i][0], pts[i][1]);
+      ctx.lineTo(pts[j][0], pts[j][1]);
+      ctx.strokeStyle = '#444';
+      ctx.stroke();
+    }
+  }
+
+  // vectors from center
+  for (let i=0;i<4;i++){
+    ctx.beginPath();
+    ctx.moveTo(170,170);
+    ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.strokeStyle = i===3 ? '#ff7b72' : '#58a6ff';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+
+  angle += 0.01;
+  requestAnimationFrame(draw);
+}
+
+draw();
+</script>
+
+</body>
+</html>
