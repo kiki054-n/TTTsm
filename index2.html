@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TTT — Tri-Tetra Symmetry Model</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #0b0f1a;
+      color: #e6edf3;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: #0b0f1a;
+      border-bottom: 1px solid #222;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: #58a6ff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 0.9em;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px;
+      border-bottom: 1px solid #222;
+    }
+
+    h1 { font-size: 2.5em; }
+
+    section {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+      border-bottom: 1px solid #222;
+    }
+
+    h2 { color: #58a6ff; }
+
+    .equation {
+      background: #111827;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    canvas {
+      display: block;
+      margin: 30px auto;
+      background: #111827;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#overview">Overview</a>
+  <a href="#core">Core</a>
+  <a href="#geometry">Geometry</a>
+  <a href="#sphere">Sphere</a>
+</nav>
+
+<header>
+  <h1>TTT</h1>
+  <p>Symmetry generates structure. Balance defines reality.</p>
+</header>
+
+<section id="overview">
+  <h2>Overview</h2>
+  <p>
+    A geometric model where symmetry and vector balance produce stable structures.
+  </p>
+</section>
+
+<section id="core">
+  <h2>Core Theorem</h2>
+  <div class="equation">\[ v_1 + v_2 + v_3 + v_4 = 0 \]</div>
+</section>
+
+<section id="geometry">
+  <h2>Geometry</h2>
+  <p>3 → triangle / 4 → tetrahedron / dual → octahedron</p>
+</section>
+
+<section id="sphere">
+  <h2>Spherical Symmetry Visualization</h2>
+  <canvas id="sphereCanvas" width="300" height="300"></canvas>
+</section>
+
+<script>
+const canvas = document.getElementById('sphereCanvas');
+const ctx = canvas.getContext('2d');
+
+let angle = 0;
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const cx = 150;
+  const cy = 150;
+  const r = 100;
+
+  // sphere outline
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.strokeStyle = '#444';
+  ctx.stroke();
+
+  // rotating vectors (3 directions)
+  for (let i = 0; i < 3; i++) {
+    let a = angle + i * (Math.PI * 2 / 3);
+
+    let x = cx + r * Math.cos(a);
+    let y = cy + r * Math.sin(a);
+
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(x, y);
+    ctx.strokeStyle = '#58a6ff';
+    ctx.stroke();
+  }
+
+  angle += 0.01;
+  requestAnimationFrame(draw);
+}
+
+draw();
+</script>
+
+</body>
+</html>
